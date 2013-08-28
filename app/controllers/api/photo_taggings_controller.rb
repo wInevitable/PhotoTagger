@@ -1,6 +1,6 @@
 class Api::PhotoTaggingsController < ApplicationController
   before_filter :require_current_user!, :only => [:create]
-  before_filter :requrie_owner_user!, :only => [:create]
+  before_filter :require_owner_user!, :only => [:create]
 
   def create
     @photo_tagging = PhotoTagging.new(params[:photo_tagging])
@@ -25,6 +25,8 @@ class Api::PhotoTaggingsController < ApplicationController
   private
   def require_owner_user!
     # TODO: really should give permission error!
-    redirect_to user_url(current_user)
+    unless current_user.id == Photo.find(params[:photo_tagging][:photo_id]).owner_id
+      redirect_to user_url(current_user)
+    end
   end
 end
