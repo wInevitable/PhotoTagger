@@ -13,5 +13,6 @@ group :development do
 end
 
 gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'ejs'
 gem 'jquery-rails'
 gem 'pg'
