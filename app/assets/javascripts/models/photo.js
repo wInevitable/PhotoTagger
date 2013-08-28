@@ -26,6 +26,12 @@
       });
     },
 
+    find: function (id) {
+      return _(this.all).find(function (photo) {
+        return photo.get("id") == id;
+      });
+    },
+
     on: function (eventName, callback) {
       var callbacks = this._events[eventName] || (this._events[eventName] = [])
       callbacks.push(callback);
