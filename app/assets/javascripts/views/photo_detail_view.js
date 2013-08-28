@@ -6,25 +6,12 @@
     this.photo = photo;
 
     this.$el.on("click", "a#photosListView", this.showList.bind(this));
-    this.$el.on("click", "img", this.popPhotoTagSelectView.bind(this));
+    this.$el.on("click", "img", this.popTagSelectView.bind(this));
   };
 
   _.extend(PhotoDetailView.prototype, {
-    popPhotoTagSelectView: function (event) {
-      var imgPos = $("img").position();
-
-      var boxLeft = event.offsetX + imgPos.left - 50;
-      var boxTop = event.offsetY + imgPos.top - 50;
-
-      var $div = $("<div></div>");
-      $div.addClass("photo-tag");
-      $div.css({
-        position: "absolute",
-        left: boxLeft,
-        top: boxTop
-      });
-
-      this.$el.append($div);
+    popTagSelectView: function (event) {
+      this.$el.append(new PT.TagSelectView(this.photo, event).render());
     },
 
     render: function () {
