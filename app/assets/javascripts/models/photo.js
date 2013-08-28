@@ -8,6 +8,8 @@
   _.extend(Photo, {
     _events: {},
 
+    all: [],
+
     fetchByUserId: function (userId, callback) {
       $.ajax({
         url: "/api/users/" + userId + "/photos",
@@ -16,6 +18,8 @@
           var photos = _(photosData).map(function (photoData) {
             return new Photo(photoData);
           });
+
+          Photo.all = Photo.all.concat(photos);
 
           callback(photos);
         }
@@ -55,7 +59,9 @@
         success: function (newAttrs) {
           _(photo.attributes).extend(newAttrs);
 
+          Photo.all.add(photo);
           Photo.trigger("add");
+
           callback(photo);
         }
       });
