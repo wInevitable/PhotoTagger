@@ -1,9 +1,8 @@
 (function (root) {
   var PT = root.PT || (root.PT = {});
 
-  var PhotosListView = PT.PhotosListView = function (photos) {
+  var PhotosListView = PT.PhotosListView = function () {
     this.$el = $("<div></div>");
-    this.photos = photos;
   };
 
   _.extend(PhotosListView.prototype, {
@@ -12,7 +11,7 @@
 
       this.$el.empty();
       var $ul = $("<ul></ul>");
-      _(this.photos).each(function (photo) {
+      _(PT.Photo.all).each(function (photo) {
         var $li = $("<li></li>");
         $li.text(photo.get("title"));
         $ul.append($li);
