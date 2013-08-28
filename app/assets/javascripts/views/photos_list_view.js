@@ -4,6 +4,8 @@
   var PhotosListView = PT.PhotosListView = function () {
     this.$el = $("<div></div>");
 
+    this.$el.on("click", "a", this.showDetail.bind(this));
+
     // re-render when new photos get added
     PT.Photo.on("add", this.render.bind(this));
   };
@@ -16,13 +18,23 @@
       var $ul = $("<ul></ul>");
       _(PT.Photo.all).each(function (photo) {
         var $li = $("<li></li>");
-        $li.text(photo.get("title"));
-        $ul.append($li);
+        var $a = $("<a></a>");
+        $a.text(photo.get("title"));
+        $a.attr("href", "#");
+        $a.attr("data-id", photo.get("id"));
+
+        $ul.append($li.html($a));
       });
 
       this.$el.html($ul);
 
       return this;
+    },
+
+    showDetail: function (event) {
+      event.preventDefault();
+
+      console.log(event);
     }
   });
 })(this);
