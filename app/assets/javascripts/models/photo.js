@@ -6,6 +6,8 @@
   }
 
   _.extend(Photo, {
+    _events: {},
+
     fetchByUserId: function (userId, callback) {
       $.ajax({
         url: "/api/users/" + userId + "/photos",
@@ -18,6 +20,19 @@
           callback(photos);
         }
       });
+    },
+
+    on: function (eventName, callback) {
+      var callbacks = this._events[eventName] || (this._events[eventName] = [])
+      callbacks.push(callback);
+    },
+
+    trigger: function (eventName) {
+      if !(this._events[eventName]) {
+        return
+      }
+
+      this._events[eventName].forEach(function (callback) { callback() });
     }
   });
 
@@ -39,6 +54,8 @@
         data: { photo: this.attributes },
         success: function (newAttrs) {
           _(photo.attributes).extend(newAttrs);
+
+          Photo.trigger("add");
           callback(photo);
         }
       });
