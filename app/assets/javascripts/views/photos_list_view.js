@@ -34,7 +34,9 @@
     showDetail: function (event) {
       event.preventDefault();
 
-      console.log(event);
+      var $currentTarget = $(event.currentTarget);
+      var photo = PT.Photo.find(parseInt($currentTarget.attr("data-id")));
+      PT.showPhotoDetail(photo);
     }
   });
 })(this);
