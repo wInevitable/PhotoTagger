@@ -3,6 +3,9 @@
 
   var PhotosListView = PT.PhotosListView = function () {
     this.$el = $("<div></div>");
+
+    // re-render when new photos get added
+    PT.Photo.on("add", this.render.bind(this));
   };
 
   _.extend(PhotosListView.prototype, {
