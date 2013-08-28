@@ -4,6 +4,8 @@
   var PhotoDetailView = PT.PhotoDetailView = function (photo) {
     this.$el = $("<div></div>");
     this.photo = photo;
+
+    this.$el.on("click", "a#photosListView", this.showList.bind(this));
   };
 
   _.extend(PhotoDetailView.prototype, {
@@ -15,6 +17,11 @@
       );
 
       return this;
+    },
+
+    showList: function (event) {
+      event.preventDefault();
+      PT.showPhotosIndex();
     }
   });
 })(this);

@@ -38,6 +38,7 @@ _.extend(PT, {
 
   showPhotosIndex: function () {
     var content = $("#content");
+    content.empty();
 
     var photosListView = new PT.PhotosListView();
     content.append(photosListView.render().$el);
