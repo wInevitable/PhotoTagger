@@ -23,7 +23,7 @@
 
   _.extend(Photo.prototype, {
     get: function (attrName) {
-      this.attributes[attrName];
+      return this.attributes[attrName];
     },
 
     set: function (attrName, val) {
