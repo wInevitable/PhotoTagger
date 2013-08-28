@@ -32,7 +32,7 @@
     },
 
     trigger: function (eventName) {
-      if !(this._events[eventName]) {
+      if (!this._events[eventName]) {
         return
       }
 
@@ -59,7 +59,7 @@
         success: function (newAttrs) {
           _(photo.attributes).extend(newAttrs);
 
-          Photo.all.add(photo);
+          Photo.all.push(photo);
           Photo.trigger("add");
 
           callback(photo);
