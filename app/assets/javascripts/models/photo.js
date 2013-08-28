@@ -8,7 +8,7 @@
   _.extend(Photo, {
     fetchByUserId: function (userId, callback) {
       $.ajax({
-        url: "/users/" + userId + "/photos",
+        url: "/api/users/" + userId + "/photos",
         type: "GET",
         success: function (photosData) {
           var photos = _(photosData).map(function (photoData) {
@@ -31,11 +31,16 @@
     },
 
     create: function (callback) {
+      var photo = this;
+
       $.ajax({
-        url: "/photos",
+        url: "/api/photos",
         type: "POST",
-        data: this.attributes,
-        success: callback
+        data: { photo: this.attributes },
+        success: function (newAttrs) {
+          _(photo.attributes).extend(newAttrs);
+          callback(photo);
+        }
       });
     }
   });
