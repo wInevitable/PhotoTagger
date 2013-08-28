@@ -6,20 +6,26 @@
     this.photo = photo;
 
     var imgPos = $(event.currentTarget).position();
-    var boxLeft = event.offsetX + imgPos.left - 50;
-    var boxTop = event.offsetY + imgPos.top - 50;
-    
-    this.$el.addClass("photo-tag");
-    this.$el.css({
-      position: "absolute",
-      left: boxLeft,
-      top: boxTop
-    });
+    this.pos = {
+      left: event.offsetX + imgPos.left - 50,
+      top: event.offsetY + imgPos.top - 50
+    };
   };
 
   _.extend(TagSelectView.prototype, {
     render: function () {
-      return this.$el;
+      this.$el.empty();
+
+      var $tagBox = $("<div></div>");
+      $tagBox.addClass("photo-tag");
+      $tagBox.css({
+        position: "absolute",
+        left: this.pos.left,
+        top: this.pos.top
+      });
+      this.$el.append($tagBox);
+
+      return this;
     }
   });
 })(this);

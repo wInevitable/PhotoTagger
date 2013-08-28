@@ -11,7 +11,8 @@
 
   _.extend(PhotoDetailView.prototype, {
     popTagSelectView: function (event) {
-      this.$el.append(new PT.TagSelectView(this.photo, event).render());
+      var tagSelectView = new PT.TagSelectView(this.photo, event);
+      this.$el.append(tagSelectView.render().$el);
     },
 
     render: function () {
