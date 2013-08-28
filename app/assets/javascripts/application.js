@@ -19,3 +19,12 @@
 //= require_tree ./models
 //
 //= require_tree .
+
+PT.initialize = function () {
+  var content = $("#content");
+  PT.Photo.fetchByUserId(1, function (photos) {
+    var photosListView = new PT.PhotosListView(photos);
+
+    content.html(photosListView.render().$el);
+  });
+};
