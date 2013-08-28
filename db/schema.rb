@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20130828053306) do
 
   create_table "photos", :force => true do |t|
     t.integer  "owner_id",   :null => false
+    t.string   "title",      :null => false
     t.string   "url",        :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

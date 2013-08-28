@@ -1,5 +1,5 @@
 class Photo < ActiveRecord::Base
-  attr_accessible :owner_id, :url
+  attr_accessible :owner_id, :title, :url
 
   belongs_to :owner, :class_name => "User"
   has_many :photo_taggings
@@ -9,5 +9,5 @@ class Photo < ActiveRecord::Base
     :source => :user
   )
 
-  validates :owner_id, :url, :presence => true
+  validates :owner_id, :title, :url, :presence => true
 end
