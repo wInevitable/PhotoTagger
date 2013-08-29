@@ -6,10 +6,11 @@
     this.photo = photo;
 
     var imgPos = $(event.currentTarget).position();
-    this.pos = {
+    this.$el.css({
+      position: "absolute",
       left: event.offsetX + imgPos.left - 50,
       top: event.offsetY + imgPos.top - 50
-    };
+    });
   };
 
   _.extend(TagSelectView.prototype, {
@@ -18,12 +19,11 @@
 
       var $tagBox = $("<div></div>");
       $tagBox.addClass("photo-tag");
-      $tagBox.css({
-        position: "absolute",
-        left: this.pos.left,
-        top: this.pos.top
-      });
       this.$el.append($tagBox);
+
+      this.$el.append(JST["photo_tag_options"]({
+        users: USERS
+      }));
 
       return this;
     }
