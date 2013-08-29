@@ -7,9 +7,8 @@ class Api::PhotoTaggingsController < ApplicationController
     if @photo_tagging.save
       render :json => @photo_tagging
     else
-
       render(
-        :json => @photo_tagging.error.full_messages,
+        :json => @photo_tagging.errors.full_messages,
         :status => :unprocessable_entity
       )
     end
