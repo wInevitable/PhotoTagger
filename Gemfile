@@ -43,10 +43,10 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-  gem 'pry-rails'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'ejs'
 gem 'pg'
 group :development, :test do
+  gem 'pry-rails'
   gem 'rspec-rails'
 end
