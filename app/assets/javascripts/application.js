@@ -18,6 +18,30 @@
 //= require underscore
 //
 //= require_tree ./models
+// //= require_tree ../templates
+
 //= require_tree ./views
-//= require_tree ../templates
 //= require_tree .
+
+(function(window) {
+  
+  var PT = window.PT = (window.PT || {});
+  
+  PT.init = function() {
+    PT.Photo.fetchByUserId(window.currentUserId, function(photos) {
+      var listView = new PT.PhotoListView();
+      var formView = new PT.FormView();     
+      var renderedContent = listView.render(function(contents) {
+        $("#content").append(contents);
+      });
+      var formContent = formView.render(function(content){
+        $("#content").append(content);
+      });
+    });
+  };
+})(this);
+
+
+
+
+

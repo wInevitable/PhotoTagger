@@ -1,9 +1,28 @@
 (function(window) {
   
-  var Photo = window.Photo = (window.Photo || {});
+  var PT = window.PT = (window.PT || {});
   
-  var Photo = function(pojo) {
+  var Photo = PT.Photo = function(pojo) {
     this.attributes = _.extend(pojo) || {};
+  };
+  
+  Photo._events = {};
+  
+  Photo.all = [];
+  
+  Photo.on = function(eventName, callback) {
+    Photo._events[eventName] = (Photo._events[eventName] || []);
+    Photo._events[eventName].push(callback);
+  };
+  
+  Photo.trigger = function(eventName) {
+    var that = this;
+    var event = eventName;
+
+    Photo._events[event].forEach(function(callback) {
+
+      callback.bind(that)();
+    });
   };
 
   Photo.prototype.get = function(attr_name) {
@@ -27,7 +46,9 @@
         success: function(model, response, options) {
           _.extend(that.attributes, model);
           console.log(that.attributes);
-          Photo.all = Photo.all.concat(newPhotos);
+          Photo.all.push(model);
+
+          Photo.trigger("add");
         },
       
         error: function(model, response, options) {
@@ -67,11 +88,10 @@
           return new Photo(obj);
         });
         Photo.all = Photo.all.concat(newPhotos);
+        callback.call(that, Photo.all);
       }
     });
   };
-
-  Photo.all = [];
 })(this);
 
 
